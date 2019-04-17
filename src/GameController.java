@@ -9,36 +9,58 @@ public class GameController
     private int stake;
     private int pool;
     private Deck deck;
+    private int roundNumber;
 
-    public void Start(int arg, int[] arg2, int arg3)
+    public void Start(int playerAmount, int[] playerWallets, int stake)
     {
-        this.howManyPlayers = arg;
-        players = new ArrayList<>(howManyPlayers);
+        this.howManyPlayers = playerAmount;
+        this.players = new ArrayList<>(this.howManyPlayers);
 
-        for (int i = 0; i < howManyPlayers; i++)
+        for (int i = 0; i < this.howManyPlayers; i++)
         {
-            players.add(i, new Player(arg2[i]));
+            this.players.add(i, new Player(playerWallets[i]));
         }
 
-        stake = arg3;
-        pool = 0;
+        this.stake = stake;
+        this.pool = 0;
+        this.roundNumber = 0;
+
         playRound();
     }
 
     private void playRound()
     {
+        this.roundNumber++;
         clearCards();
         takeMoney();
         prepareCards();
         giveCards();
         givePrize(whoWon());
-        //resignations();
+        resignations();
         //report();
+
+        if (!gameEnd)
+        {
+            playRound();
+        }
+    }
+
+    private void resignations()
+    {
+        for (int i = 0; i < this.howManyPlayers; i++)
+        {
+            if (this.players.get(i).getMoney() < stake)
+            {
+                this.gameEnd = true;
+                break;
+            }
+        }
     }
 
     private void givePrize(Player winner)
     {
         winner.setMoney(winner.getMoney() + this.pool);
+        this.pool = 0;
     }
 
     private Player whoWon()
