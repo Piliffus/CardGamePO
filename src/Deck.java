@@ -11,9 +11,9 @@ public class Deck
 
         int currentCard = 0;
 
-        for (int i = 0; i < ColorInfo.howManyColors(); i++)
+        for (int y = 0; y < TypeInfo.howManyTypes(); y++)
         {
-            for (int y = 0; y < TypeInfo.howManyTypes(); y++)
+            for (int i = 0; i < ColorInfo.howManyColors(); i++)
             {
                 this.cards.add(currentCard, new Card(typeNames[y], colorNames[i]));
                 currentCard++;

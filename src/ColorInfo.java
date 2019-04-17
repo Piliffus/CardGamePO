@@ -15,13 +15,13 @@ public class ColorInfo
     {
         switch (arg)
         {
-            case "clubs":
+            case "club":
                 return 0;
-            case "diamonds":
+            case "diamond":
                 return 1;
-            case "hearts":
+            case "heart":
                 return 2;
-            case "spades":
+            case "spade":
                 return 3;
             default:
                 return -1; // ERROR
