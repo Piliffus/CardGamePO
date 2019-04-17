@@ -6,7 +6,7 @@ public class Card
 
     public void readCard()
     {
-        System.out.println(cardType.getName() + " of " + cardColor.getName() +"s");
+        System.out.print(cardType.getName() + " of " + cardColor.getName() +"s");
     }
 
     public void readCardPriority()

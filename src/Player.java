@@ -6,17 +6,28 @@ public class Player
     private int money;
     private ArrayList<Card> cardsOnHand;
 
+    public void sayCards()
+    {
+        for (int i = 0; i < this.handSize; i++)
+        {
+            this.cardsOnHand.get(i).readCard();
+            System.out.print(", ");
+        }
+
+        System.out.print("\n");
+    }
+
     public Card highestCard()
     {
         int maxValue = -1;
         Card bestCard = null;
 
-        for (int i = 0; i < handSize; i++)
+        for (int i = 0; i < this.handSize; i++)
         {
-            if (cardsOnHand.get(i).getPriority() >= maxValue)
+            if (this.cardsOnHand.get(i).getPriority() >= maxValue)
             {
-                maxValue = cardsOnHand.get(i).getPriority();
-                bestCard = cardsOnHand.get(i);
+                maxValue = this.cardsOnHand.get(i).getPriority();
+                bestCard = this.cardsOnHand.get(i);
             }
         }
 
@@ -25,7 +36,7 @@ public class Player
 
     public void takeCardsAway()
     {
-        cardsOnHand = new ArrayList<>(handSize);
+        this.cardsOnHand = new ArrayList<>(handSize);
     }
 
     public int getHandSize()
@@ -35,7 +46,7 @@ public class Player
 
     public void giveCard(Card card)
     {
-            cardsOnHand.add(card);
+        this.cardsOnHand.add(card);
     }
 
     public int getMoney()
@@ -52,6 +63,6 @@ public class Player
     {
         this.money = money;
         this.handSize = 5;
-        cardsOnHand = new ArrayList<>(handSize);
+        this.cardsOnHand = new ArrayList<>(handSize);
     }
 }

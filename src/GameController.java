@@ -11,6 +11,8 @@ public class GameController
     private Deck deck;
     private int roundNumber;
 
+    private int howManyPlayersTemp; //used by input/output functions
+
     public void Start(int playerAmount, int[] playerWallets, int stake)
     {
         this.howManyPlayers = playerAmount;
@@ -23,6 +25,7 @@ public class GameController
 
         this.stake = stake;
         this.pool = 0;
+
         this.roundNumber = 0;
 
         playRound();
@@ -30,18 +33,43 @@ public class GameController
 
     private void playRound()
     {
+        Player winner;
         this.roundNumber++;
         clearCards();
         takeMoney();
         prepareCards();
         giveCards();
-        givePrize(whoWon());
+        winner = whoWon();
+        givePrize(winner);
         resignations();
-        //report();
+        report(winner);
 
         if (!gameEnd)
         {
             playRound();
+        }
+    }
+
+    private void report(Player winner)
+    {
+        System.out.println("The results of round " + this.roundNumber + " are as follows:");
+
+        for (int i = 0; i < this.howManyPlayers; i++)
+        {
+            System.out.println("Player " + (i+1) + " has following cards:");
+            this.players.get(i).sayCards();
+        }
+
+        System.out.println("The winner of this round is player " + (this.players.indexOf(winner)+1));
+
+        for (int i = 0; i < this.howManyPlayers; i++)
+        {
+            System.out.println("Player " + (i+1) + " has " + players.get(i).getMoney() + "$ remaining");
+        }
+
+        if (this.gameEnd)
+        {
+            System.out.println("The game is over");
         }
     }
 
@@ -122,11 +150,11 @@ public class GameController
         }
     }
 
-    private void giveMoney(int [] moneyTemp, int howManyPlayersTemp, Scanner scanner)
+    private void giveMoney(int [] moneyTemp, Scanner scanner)
     {
         System.out.println("Assign money to the players");
 
-        for (int i = 0; i < howManyPlayersTemp; i++)
+        for (int i = 0; i < this.howManyPlayersTemp; i++)
         {
             System.out.println("How much money for player " + (i+1) + "?");
             moneyTemp[i] = scanner.nextInt();
@@ -144,15 +172,15 @@ public class GameController
 
     public void Start()
     {
+        this.howManyPlayersTemp = 0;
         Scanner scanner = new Scanner(System.in);
-        int howManyPlayersTemp = 0;
-        int[] moneyTemp = askForPlayers(scanner, howManyPlayersTemp);
-        giveMoney(moneyTemp, howManyPlayersTemp, scanner);
+        int[] moneyTemp = askForPlayers(scanner);
+        giveMoney(moneyTemp, scanner);
         int stakesTemp = askForStakes(scanner);
         Start(howManyPlayersTemp, moneyTemp, stakesTemp);
     }
 
-    private int[] askForPlayers(Scanner scanner, int howManyPlayersTemp)
+    private int[] askForPlayers(Scanner scanner)
     {
         System.out.print(
                 "Choose number of players:\n" +
