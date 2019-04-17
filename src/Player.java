@@ -6,6 +6,11 @@ public class Player
     private int money;
     private ArrayList<Card> cardsOnHand;
 
+    public void takeCardsAway()
+    {
+        cardsOnHand = new ArrayList<>(handSize);
+    }
+
     public int getHandSize()
     {
         return handSize;

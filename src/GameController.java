@@ -27,11 +27,20 @@ public class GameController
 
     private void playRound()
     {
+        clearCards();
         takeMoney();
         prepareCards();
         giveCards();
         //givePrize(whoWon());
         //resignations();
+    }
+
+    private void clearCards()
+    {
+        for (int i = 0; i < howManyPlayers; i++)
+        {
+            players.get(i).takeCardsAway();
+        }
     }
 
     private void giveCards()
