@@ -2,7 +2,7 @@ import java.util.ArrayList;
 
 public class Deck
 {
-    ArrayList<Card> cards;
+    private ArrayList<Card> cards;
 
     private void putCards()
     {
@@ -19,6 +19,11 @@ public class Deck
                 currentCard++;
             }
         }
+    }
+
+    public ArrayList<Card> getCards()
+    {
+        return cards;
     }
 
     public Deck()

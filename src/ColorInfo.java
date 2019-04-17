@@ -2,7 +2,7 @@ public class ColorInfo
 {
     static public String[] getColorNames()
     {
-        String[] names = {"clubs", "diamonds", "hearts", "spades"};
+        String[] names = {"club", "diamond", "heart", "spade"};
         return names;
     }
 

@@ -1,16 +1,29 @@
 public class Card
 {
-    private Type type;
-    private Color color;
+    private CardType cardType;
+    private CardColor cardColor;
+    private int priority;
 
     public void readCard()
     {
-        System.out.println(type.getName() + " of " + color.getName() +"s");
+        System.out.println(cardType.getName() + " of " + cardColor.getName() +"s");
     }
 
-    public Card(String type, String color)
+    public void readCardPriority()
     {
-        this.type = new Type(type);
-        this.color = new Color(color);
+        System.out.println(this.toString());
+    }
+
+    @Override
+    public String toString()
+    {
+        return "priority = " + priority;
+    }
+
+    public Card(String cardType, String cardColor)
+    {
+        this.cardType = new CardType(cardType);
+        this.cardColor = new CardColor(cardColor);
+        priority = this.cardType.getPriority() + this.cardColor.getPriority();
     }
 }
