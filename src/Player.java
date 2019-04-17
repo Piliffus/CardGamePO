@@ -2,9 +2,19 @@ import java.util.ArrayList;
 
 public class Player
 {
-    int handSize;
-    int money;
-    ArrayList<Card> cardsOnHand;
+    private int handSize;
+    private int money;
+    private ArrayList<Card> cardsOnHand;
+
+    public int getMoney()
+    {
+        return money;
+    }
+
+    public void setMoney(int money)
+    {
+        this.money = money;
+    }
 
     public Player(int money)
     {

@@ -8,6 +8,7 @@ public class GameController
     private int howManyPlayers;
     private int stake;
     private int pool;
+    private Deck deck;
 
     public void Start(int arg, int[] arg2, int arg3)
     {
@@ -20,6 +21,33 @@ public class GameController
         }
 
         stake = arg3;
+        pool = 0;
+        playRound();
+    }
+
+    private void playRound()
+    {
+        takeMoney();
+        prepareCards();
+        //giveCards();
+       // whoWon();
+        //givePrize();
+        //resignations();
+    }
+
+    private void prepareCards()
+    {
+        deck = new Deck();
+      //  deck.shuffle();
+    }
+
+    private void takeMoney()
+    {
+        for(int i = 0; i < howManyPlayers; i++)
+        {
+            players.get(i).setMoney(players.get(i).getMoney() - this.stake);
+            this.pool = this.pool + this.stake;
+        }
     }
 
     private void giveMoney(int [] moneyTemp, int howManyPlayersTemp, Scanner scanner)
