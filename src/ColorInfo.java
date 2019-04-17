@@ -6,6 +6,11 @@ public class ColorInfo
         return names;
     }
 
+    public static int highestColorValue()
+    {
+        return 3;
+    }
+
     static public int howManyColors()
     {
         return 4;

@@ -14,6 +14,11 @@ public class Card
         System.out.println(this.toString());
     }
 
+    public int getPriority()
+    {
+        return priority;
+    }
+
     @Override
     public String toString()
     {

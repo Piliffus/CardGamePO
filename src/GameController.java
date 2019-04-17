@@ -31,8 +31,36 @@ public class GameController
         takeMoney();
         prepareCards();
         giveCards();
-        //givePrize(whoWon());
+        givePrize(whoWon());
         //resignations();
+        //report();
+    }
+
+    private void givePrize(Player winner)
+    {
+        winner.setMoney(winner.getMoney() + this.pool);
+    }
+
+    private Player whoWon()
+    {
+        int highestValue = -1;
+        Player winner = null;
+
+        for (int i = 0; i < howManyPlayers; i++)
+        {
+            if (players.get(i).highestCard().getPriority() > highestValue)
+            {
+                highestValue = players.get(i).highestCard().getPriority();
+                winner = players.get(i);
+            }
+
+            if (highestValue >= (TypeInfo.highestTypeValue() + ColorInfo.highestColorValue()))
+            {
+                break;
+            }
+        }
+
+        return winner;
     }
 
     private void clearCards()

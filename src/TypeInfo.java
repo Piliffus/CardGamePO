@@ -5,6 +5,11 @@ public class TypeInfo
         return 13;
     }
 
+    public static int highestTypeValue()
+    {
+        return 12 * (ColorInfo.howManyColors());
+    }
+
     public static String[] getTypeNames()
     {
         String[] names = {"two", "three", "four", "five", "six", "seven", "eight", "nine", "ten",

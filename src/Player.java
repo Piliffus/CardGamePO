@@ -6,6 +6,23 @@ public class Player
     private int money;
     private ArrayList<Card> cardsOnHand;
 
+    public Card highestCard()
+    {
+        int maxValue = -1;
+        Card bestCard = null;
+
+        for (int i = 0; i < handSize; i++)
+        {
+            if (cardsOnHand.get(i).getPriority() >= maxValue)
+            {
+                maxValue = cardsOnHand.get(i).getPriority();
+                bestCard = cardsOnHand.get(i);
+            }
+        }
+
+        return bestCard;
+    }
+
     public void takeCardsAway()
     {
         cardsOnHand = new ArrayList<>(handSize);
