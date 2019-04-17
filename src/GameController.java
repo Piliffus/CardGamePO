@@ -29,16 +29,29 @@ public class GameController
     {
         takeMoney();
         prepareCards();
-        //giveCards();
-       // whoWon();
-        //givePrize();
+        giveCards();
+        //givePrize(whoWon());
         //resignations();
+    }
+
+    private void giveCards()
+    {
+        int currentCard = 0;
+
+        for (int i = 0; i < players.get(0).getHandSize(); i++)
+        {
+            for (int y = 0; y < howManyPlayers; y++)
+            {
+                players.get(y).giveCard(deck.getCard(currentCard));
+                currentCard++;
+            }
+        }
     }
 
     private void prepareCards()
     {
         deck = new Deck();
-      //  deck.shuffle();
+        //deck.shuffle();
     }
 
     private void takeMoney()

@@ -21,6 +21,11 @@ public class Deck
         }
     }
 
+    public Card getCard(int i)
+    {
+        return cards.get(i);
+    }
+
     public ArrayList<Card> getCards()
     {
         return cards;
