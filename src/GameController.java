@@ -60,7 +60,10 @@ public class GameController
             this.players.get(i).sayCards();
         }
 
-        System.out.println("The winner of this round is player " + (this.players.indexOf(winner)+1));
+        System.out.print("The winner of this round is player " + (this.players.indexOf(winner)+1) +
+                ", winning card is ");
+        this.players.get(this.players.indexOf(winner)).highestCard().readCard();
+        System.out.print("\n");
 
         for (int i = 0; i < this.howManyPlayers; i++)
         {
