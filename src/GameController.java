@@ -6,18 +6,56 @@ public class GameController
     private ArrayList<Player> players;
     private boolean gameEnd;
     private int howManyPlayers;
+    private int stake;
+    private int pool;
 
-    public void Start(int arg)
+    public void Start(int arg, int[] arg2, int arg3)
     {
         this.howManyPlayers = arg;
+        players = new ArrayList<>(howManyPlayers);
+
+        for (int i = 0; i < howManyPlayers; i++)
+        {
+            players.add(i, new Player(arg2[i]));
+        }
+
+        stake = arg3;
+    }
+
+    private void giveMoney(int [] moneyTemp, int howManyPlayersTemp, Scanner scanner)
+    {
+        System.out.println("Assign money to the players");
+
+        for (int i = 0; i < howManyPlayersTemp; i++)
+        {
+            System.out.println("How much money for player " + (i+1) + "?");
+            moneyTemp[i] = scanner.nextInt();
+            scanner.nextLine();
+        }
+    }
+
+    private int askForStakes(Scanner scanner)
+    {
+        System.out.println("How high should the stakes be?");
+        int stakesTemp = scanner.nextInt();
+        scanner.nextLine();
+        return stakesTemp;
     }
 
     public void Start()
     {
         Scanner scanner = new Scanner(System.in);
         int howManyPlayersTemp = 0;
+        int[] moneyTemp = askForPlayers(scanner, howManyPlayersTemp);
+        giveMoney(moneyTemp, howManyPlayersTemp, scanner);
+        int stakesTemp = askForStakes(scanner);
+        Start(howManyPlayersTemp, moneyTemp, stakesTemp);
+    }
 
-        System.out.print("Choose number of players:\n" +
+    private int[] askForPlayers(Scanner scanner, int howManyPlayersTemp)
+    {
+        System.out.print(
+                "Choose number of players:\n" +
                 "  a) - 2 players\n" +
                 "  b) - 3 players\n" +
                 "  c) - 4 players\n" +
@@ -49,8 +87,11 @@ public class GameController
             }
         }
 
-        Start(howManyPlayersTemp);
+        return new int[howManyPlayersTemp];
     }
 
-
+    public GameController()
+    {
+        this.gameEnd = false;
+    }
 }
