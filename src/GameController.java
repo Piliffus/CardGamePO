@@ -34,7 +34,9 @@ public class GameController
     private void playRound()
     {
         Player winner;
+
         this.roundNumber++;
+
         clearCards();
         takeMoney();
         prepareCards();
@@ -52,6 +54,7 @@ public class GameController
 
     private void report(Player winner)
     {
+        System.out.println();
         System.out.println("The results of round " + this.roundNumber + " are as follows:");
 
         for (int i = 0; i < this.howManyPlayers; i++)
@@ -61,7 +64,7 @@ public class GameController
         }
 
         System.out.print("The winner of this round is player " + (this.players.indexOf(winner)+1) +
-                ", winning card is ");
+                ", and the winning card is ");
         this.players.get(this.players.indexOf(winner)).highestCard().readCard();
         System.out.print("\n");
 
@@ -141,7 +144,7 @@ public class GameController
     private void prepareCards()
     {
         deck = new Deck();
-        //deck.shuffle();
+        deck.shuffle();
     }
 
     private void takeMoney()
@@ -185,16 +188,17 @@ public class GameController
 
     private int[] askForPlayers(Scanner scanner)
     {
-        System.out.print(
-                "Choose number of players:\n" +
-                "  a) - 2 players\n" +
-                "  b) - 3 players\n" +
-                "  c) - 4 players\n" +
-                "  d) - 5 players\n" +
-                "  e) - 6 players\n");
-
         while (howManyPlayersTemp == 0)
         {
+            System.out.print(
+                    "Choose number of players:\n" +
+                            "  a) - 2 players\n" +
+                            "  b) - 3 players\n" +
+                            "  c) - 4 players\n" +
+                            "  d) - 5 players\n" +
+                            "  e) - 6 players\n");
+
+
             switch (scanner.nextLine().toLowerCase())
             {
                 case "a":
