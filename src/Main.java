@@ -5,6 +5,6 @@ public class Main
     {
      Test.checkTypesInformation();
         //   GameController gameController = new GameController();
-       // gameController.Start();
+       // gameController.Start()
     }
 }

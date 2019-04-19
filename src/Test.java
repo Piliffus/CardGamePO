@@ -117,8 +117,12 @@ public class Test
 
     }
 
-    public static void deckSizeTest()
+    public static void deckSizeTest(Deck deck)
     {
+        int testedSize = deck.getCards().size();
+        int expectedSize = ColorInfo.howManyColors() * TypeInfo.howManyTypes();
 
+        System.out.println("The size of the deck is" + testedSize + "and the expected number is " + expectedSize);
+        System.out.println("The size is " + (testedSize == expectedSize ? "correct" : "wrong"));
     }
 }
