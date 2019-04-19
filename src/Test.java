@@ -72,6 +72,7 @@ public class Test
         testTypesNumber(testedTypesNumber, expectedTypesNumber);
         System.out.println();
         testHighestValue(testedHighestValue, expectedHighestValue);
+        System.out.println();
     }
 
     private static void testHighestValue(int testedHighestValue, int expectedHighestValue)
@@ -114,7 +115,22 @@ public class Test
 
     public static void checkColorsInformation()
     {
+        String[] testedNames = ColorInfo.getColorNames();
+        String[] expectedNames = {"club", "diamond", "heart", "spade"};
 
+        int testedColorsNumber = ColorInfo.howManyColors();
+        int expectedColorsNumber = expectedNames.length;
+
+        int testedHighestValue = ColorInfo.highestColorValue();
+        int expectedHighestValue = expectedNames.length-1;
+
+        System.out.println("Checking ColorInfo:");
+        testNames(testedNames, expectedNames);
+        System.out.println();
+        testTypesNumber(testedColorsNumber, expectedColorsNumber);
+        System.out.println();
+        testHighestValue(testedHighestValue, expectedHighestValue);
+        System.out.println();
     }
 
     public static void deckSizeTest(Deck deck)
