@@ -9,6 +9,11 @@ public class Card
         System.out.print(cardType.getName() + " of " + cardColor.getName() +"s");
     }
 
+    public String readCardStr()
+    {
+        return cardType.getName() + " of "+ cardColor.getName() + "s";
+    }
+
     public void readCardPriority()
     {
         System.out.println(this.toString());

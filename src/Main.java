@@ -7,5 +7,6 @@ public class Main
      Test.checkColorsInformation();
      //   GameController gameController = new GameController();
        // gameController.Start()
+        Test.prioritiesTest();
     }
 }

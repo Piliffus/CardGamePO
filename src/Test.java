@@ -64,7 +64,7 @@ public class Test
         int expectedTypesNumber = expectedNames.length;
 
         int testedHighestValue = TypeInfo.highestTypeValue();
-        int expectedHighestValue = TypeInfo.assignPriority(expectedNames[expectedNames.length-1]); // could be updated with info from colortests
+        int expectedHighestValue = TypeInfo.assignPriority(expectedNames[expectedNames.length-1]);
 
         System.out.println("Checking TypeInfo:");
         testNames(testedNames, expectedNames);
@@ -140,5 +140,49 @@ public class Test
 
         System.out.println("The size of the deck is" + testedSize + "and the expected number is " + expectedSize);
         System.out.println("The size is " + (testedSize == expectedSize ? "correct" : "wrong"));
+    }
+
+    public static void prioritiesTest()
+    {
+        String[] ColorNames = ColorInfo.getColorNames();
+        String[] TypeNames = TypeInfo.getTypeNames();
+        Card expectedLowestCard = new Card(TypeNames[0], ColorNames[0]);
+        Card expectedHighestCard = new Card(TypeNames[TypeInfo.howManyTypes()-1], ColorNames[ColorInfo.howManyColors()-1]);
+        Card testedLowestCard = new Card(TypeNames[TypeInfo.howManyTypes()-1], ColorNames[ColorInfo.howManyColors()-1]);
+        Card testedHighestCard = new Card(TypeNames[0], ColorNames[0]);
+
+        System.out.println("Checking priorities:");
+
+        for (int i = 0; i < TypeInfo.howManyTypes(); i++)
+        {
+                for (int y = 0; y < ColorInfo.howManyColors(); y++)
+                {
+                    Card testedCard = new Card(TypeNames[i], ColorNames[y]);
+                    int expectedPriority = i * ColorInfo.howManyColors() + y;
+                    int testedPriority = testedCard.getPriority();
+
+                    if (testedCard.getPriority() <= testedLowestCard.getPriority())
+                    {
+                        testedLowestCard = testedCard;
+                    }
+                    if (testedCard.getPriority() >= testedHighestCard.getPriority())
+                    {
+                        testedHighestCard = testedCard;
+                    }
+
+                    System.out.println("The expected priority of " + testedCard.readCardStr() + " is " + expectedPriority
+                            + " and the priority assigned by simulation is " + testedPriority + ". Priority is " +
+                            (testedPriority == expectedPriority ? "" : "not ") + "as expected");
+                }
+        }
+
+        System.out.println();
+        System.out.println("Highest expected card is " + expectedHighestCard.readCardStr() +
+                ", and highest created by simulation is " + testedHighestCard.readCardStr() + ". Priority is " +
+                (testedHighestCard.getPriority() == expectedHighestCard.getPriority() ? "" : "not ") + "as expected");
+
+        System.out.println("Lowest expected card is " + expectedLowestCard.readCardStr() +
+                ", and lowest created by simulation is " + testedLowestCard.readCardStr() + ". Priority is " +
+                (testedLowestCard.getPriority() == expectedLowestCard.getPriority() ? "" : "not ") + "as expected");
     }
 }
