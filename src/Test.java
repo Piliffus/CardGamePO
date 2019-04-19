@@ -3,6 +3,13 @@ import java.util.Arrays;
 
 public class Test
 {
+    public static void fullDiagnostics()
+    {
+        Test.checkTypesInformation();
+        Test.checkColorsInformation();
+        Test.prioritiesTest();
+    }
+
     public static void cardTypeAndColorReadingTest(ArrayList<Card> arg)
     {
         for (int i = 0; i < arg.size(); i++)
@@ -178,11 +185,11 @@ public class Test
 
         System.out.println();
         System.out.println("Highest expected card is " + expectedHighestCard.readCardStr() +
-                ", and highest created by simulation is " + testedHighestCard.readCardStr() + ". Priority is " +
+                ", and highest created by simulation is " + testedHighestCard.readCardStr() + ". Card is " +
                 (testedHighestCard.getPriority() == expectedHighestCard.getPriority() ? "" : "not ") + "as expected");
 
         System.out.println("Lowest expected card is " + expectedLowestCard.readCardStr() +
-                ", and lowest created by simulation is " + testedLowestCard.readCardStr() + ". Priority is " +
+                ", and lowest created by simulation is " + testedLowestCard.readCardStr() + ". Card is " +
                 (testedLowestCard.getPriority() == expectedLowestCard.getPriority() ? "" : "not ") + "as expected");
     }
 }
