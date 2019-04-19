@@ -1,4 +1,5 @@
 import java.util.ArrayList;
+import java.util.Random;
 import java.util.Scanner;
 
 public class GameController
@@ -13,8 +14,78 @@ public class GameController
 
     private int howManyPlayersTemp; //used by input/output functions
 
-    public void Start(int playerAmount, int[] playerWallets, int stake)
+    public void setup()
     {
+        Scanner scanner = new Scanner(System.in);
+
+        System.out.print("a) Random simulation\nb) Random simulation with equal money\nc) Manual data input\n");
+
+        String input = "wrongInput";
+
+        while (input.equals("wrongInput"))
+        {
+            input = scanner.nextLine().toLowerCase();
+
+            switch (input)
+            {
+                case "a":
+                    this.everythingRandomSimulation(false);
+                    break;
+                case "b":
+                    this.everythingRandomSimulation(true);
+                    break;
+                case "c":
+                    this.start();
+                    break;
+                default:
+                    input = "wrongInput";
+                    break;
+            }
+        }
+    }
+
+    private void everythingRandomSimulation(boolean equalMoney)
+    {
+        Random generator = new Random();
+        int players = (generator.nextInt(4)+2);
+        int[] playerWallets = new int[players];
+        int money = 0;
+        int lowestMoney = 9990 + 10;
+
+        if (equalMoney)
+        {
+            money = generator.nextInt(9990)+10; // 10 000 (9 990 + 10) could be replaced with max int - 10
+        }
+
+        for (int i = 0; i < players; i++)
+        {
+            if (!equalMoney)
+            {
+                money =  generator.nextInt(9990)+10;
+            }
+
+            if (money < lowestMoney)
+            {
+                lowestMoney = money;
+            }
+
+            playerWallets[i] = money;
+        }
+
+        int stakes = lowestMoney / (generator.nextInt(8)+2);
+
+        System.out.println("Running game with " + players + " players. Stake is " + stakes + "$");
+        for (int i = 0; i < players; i++)
+        {
+            System.out.println("Player " + (i+1) + " starts with " + playerWallets[i] + "$");
+        }
+
+        this.start(players, playerWallets, stakes);
+    }
+
+    private void start(int playerAmount, int[] playerWallets, int stake)
+    {
+        this.gameEnd = false;
         this.howManyPlayers = playerAmount;
         this.players = new ArrayList<>(this.howManyPlayers);
 
@@ -49,6 +120,33 @@ public class GameController
         if (!gameEnd)
         {
             playRound();
+        }
+        else
+        {
+            playAgain();
+        }
+    }
+
+    private void playAgain()
+    {
+        String input = "wrongInput";
+        Scanner scanner = new Scanner(System.in);
+
+        while (input.equals("wrongInput"))
+        {
+            System.out.println("Do you want to run another simulation? y/n");
+            input = scanner.nextLine().toLowerCase();
+            switch (input)
+            {
+                case "y":
+                    this.setup();
+                    break;
+                case "n":
+                    break;
+                default:
+                    input = "wrongInput";
+                    break;
+            }
         }
     }
 
@@ -176,14 +274,14 @@ public class GameController
         return stakesTemp;
     }
 
-    public void Start()
+    private void start()
     {
         this.howManyPlayersTemp = 0;
         Scanner scanner = new Scanner(System.in);
         int[] moneyTemp = askForPlayers(scanner);
         giveMoney(moneyTemp, scanner);
         int stakesTemp = askForStakes(scanner);
-        Start(howManyPlayersTemp, moneyTemp, stakesTemp);
+        start(howManyPlayersTemp, moneyTemp, stakesTemp);
     }
 
     private int[] askForPlayers(Scanner scanner)
@@ -227,6 +325,5 @@ public class GameController
 
     public GameController()
     {
-        this.gameEnd = false;
     }
 }

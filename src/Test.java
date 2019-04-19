@@ -1,5 +1,6 @@
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Random;
 
 public class Test
 {
@@ -49,16 +50,6 @@ public class Test
     {
         arg.readCard();
         arg.readCardPriority();
-    }
-
-    public static void everythingRandomMoneyNotEqual(GameController testedGame)
-    {
-
-    }
-
-    public static void everythingRandomMoneyIsEqual(GameController testedGame)
-    {
-
     }
 
     public static void checkTypesInformation()
