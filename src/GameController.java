@@ -50,18 +50,18 @@ public class GameController
         int players = (generator.nextInt(4)+2);
         int[] playerWallets = new int[players];
         int money = 0;
-        int lowestMoney = 9990 + 10;
+        int lowestMoney = 1999990 + 10;
 
         if (equalMoney)
         {
-            money = generator.nextInt(9990)+10; // 10 000 (9 990 + 10) could be replaced with max int - 10
+            money = generator.nextInt(1999990)+10; // 2 000 000 (1999990 + 10)
         }
 
         for (int i = 0; i < players; i++)
         {
             if (!equalMoney)
             {
-                money =  generator.nextInt(9990)+10;
+                money =  generator.nextInt(1999990)+10;
             }
 
             if (money < lowestMoney)
@@ -72,7 +72,7 @@ public class GameController
             playerWallets[i] = money;
         }
 
-        int stakes = lowestMoney / (generator.nextInt(8)+2);
+        int stakes = lowestMoney / (generator.nextInt(48)+2);
 
         System.out.println("Running game with " + players + " players. Stake is " + stakes + "$");
         for (int i = 0; i < players; i++)
@@ -99,7 +99,17 @@ public class GameController
 
         this.roundNumber = 0;
 
-        playRound();
+        play();
+    }
+
+    private void play()
+    {
+        while (!this.gameEnd)
+        {
+            playRound();
+        }
+
+        playAgain();
     }
 
     private void playRound()
@@ -116,15 +126,6 @@ public class GameController
         givePrize(winner);
         resignations();
         report(winner);
-
-        if (!gameEnd)
-        {
-            playRound();
-        }
-        else
-        {
-            playAgain();
-        }
     }
 
     private void playAgain()
@@ -254,33 +255,69 @@ public class GameController
         }
     }
 
-    private void giveMoney(int [] moneyTemp, Scanner scanner)
+    private int giveMoney(int [] moneyTemp, Scanner scanner)
     {
+        int max = 2000000;
+        int min = 2;
+        int lowestMoney = max;
+
         System.out.println("Assign money to the players");
 
         for (int i = 0; i < this.howManyPlayersTemp; i++)
         {
-            System.out.println("How much money for player " + (i+1) + "?");
-            moneyTemp[i] = scanner.nextInt();
-            scanner.nextLine();
+            moneyTemp[i] = 0;
+
+            while (moneyTemp[i] == 0)
+            {
+                System.out.println("How much money for player " + (i+1) + "? Choose number between " + min +"$ and "+
+                        max +"$:");
+                moneyTemp[i] = scanner.nextInt();
+                scanner.nextLine();
+                if (moneyTemp[i] >= min && moneyTemp[i] <= max)
+                {
+                    if (moneyTemp[i] < lowestMoney)
+                    {
+                        lowestMoney = moneyTemp[i];
+                    }
+                }
+                else moneyTemp[i] = 0;
+            }
         }
+
+        return lowestMoney;
     }
 
-    private int askForStakes(Scanner scanner)
+    private int askForStakes(Scanner scanner, int lowestMoney)
     {
-        System.out.println("How high should the stakes be?");
-        int stakesTemp = scanner.nextInt();
-        scanner.nextLine();
+        int bottomBound = 1;
+        int topBound = lowestMoney / 2;
+        int stakesTemp = 0;
+
+        while (stakesTemp == 0)
+        {
+            System.out.println("How high should the stakes be?");
+            System.out.println("Enter a number between " + bottomBound + "$ and " + topBound + "$:");
+
+            stakesTemp = scanner.nextInt();
+            scanner.nextLine();
+
+            if (stakesTemp >= bottomBound && stakesTemp <= topBound);
+
+            else stakesTemp = 0;
+        }
+
         return stakesTemp;
     }
 
     private void start()
     {
+        // Too big numbers or strings while asked for int may crash program
+
         this.howManyPlayersTemp = 0;
         Scanner scanner = new Scanner(System.in);
         int[] moneyTemp = askForPlayers(scanner);
-        giveMoney(moneyTemp, scanner);
-        int stakesTemp = askForStakes(scanner);
+        int lowestPlayer = giveMoney(moneyTemp, scanner);
+        int stakesTemp = askForStakes(scanner, lowestPlayer);
         start(howManyPlayersTemp, moneyTemp, stakesTemp);
     }
 
