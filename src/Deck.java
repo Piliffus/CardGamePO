@@ -41,18 +41,21 @@ public class Deck
     public void shuffle()
     {
         int deckSize = cards.size();
-        ArrayList<Card> cardsOne = new ArrayList<>(cards.subList(0, deckSize / 2));
-        ArrayList<Card> cardsTwo = new ArrayList<>(cards.subList(deckSize / 2, deckSize));
-
-        cards.clear();
-
-        int y = 0;
-        for (int i = 0; i < deckSize / 2; i++)
+        for (int h = 0; h < 5; h++)
         {
-            cards.add(y, cardsOne.get(i));
-            y++;
-            cards.add(y, cardsTwo.get(i));
-            y++;
+            ArrayList<Card> cardsOne = new ArrayList<>(cards.subList(0, deckSize / 2));
+            ArrayList<Card> cardsTwo = new ArrayList<>(cards.subList(deckSize / 2, deckSize));
+
+            cards.clear();
+
+            int y = 0;
+            for (int i = 0; i < deckSize / 2; i++)
+            {
+                cards.add(y, cardsOne.get(i));
+                y++;
+                cards.add(y, cardsTwo.get(i));
+                y++;
+            }
         }
 
         for (int i = 0; i < 5; i++)
